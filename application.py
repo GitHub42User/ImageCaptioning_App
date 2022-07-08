@@ -112,19 +112,33 @@ with st.expander("Data Understanding"):
   st.header("Data Understanding")
   st.subheader("About or data...")
   st.write("Our dataset consists of over 80000 images with at least 5 captions each, which are from the open-source dataset MS COCO and are randomly sorted. For the training we will not use the whole data set, because it has an enormous storage capacity.")
-  st.text("")
+   st.write("Our dataset consists of over 80000 images with at least 5 captions each, which are from the open-source dataset MS COCO and are randomly sorted. For the training we will not use the whole data set, because it has an enormous storage capacity.")
+  
+  st.code('''
+  #input
+ data['1000268201_693b08cb0e']
+  
+ #output
+ ['A child in a pink dress is climbing up a set of stairs in an entry way .',
+ 'A girl going into a wooden building .',
+ 'A little girl climbing into a wooden playhouse .',
+ 'A little girl climbing the stairs to her playhouse .',
+ 'A little girl in a pink dress going into a wooden cabin .']
+ 
+  ''')
   st.write("Therefore, in advantage of time and costs we only used ca. 8.000 pictures to train our data.")
   st.text("")
   st.write("We will not be delimiting our dataset in specific domains, as our purpose is not image classification, but image captioning, so it’s in our best interests to vary the image topics, so that we call achieve a high accuracy.")
-
+  
 with st.expander("Data Preperation"):
   st.header("Data Preperation")
-
+  
   st.subheader("Data Cleaning")
-  st.write("Our next step is to proceed with further pre-processing of the dataset and prepare the captions data by making some necessary changes. We will make sure that all the words in each of the sentences are converted to a lower case because we don't want the same word to be stored as two separate vectors during the computation of the problem. We will also remove words with a length of less than two to make sure that we remove irrelevant characters such as single letters and punctuations. The function and the code for completing this task is written as follows:") 
+  st.write("Our first step is to preprocess the dataset and prepare the captions by making some necessary changes. For example, we will make sure that all words are converted to lowercase, as we do not want the same word to be stored as two different vectors when computing the problem. We will also remove words less than two in length to ensure that we remove irrelevant characters such as single letters and punctuation marks. The function and code to solve this task are as follows:") 
   st.code('''
   
 # Cleanse and pre-process the data
+
 def cleanse_data(data):
     dict_2 = dict()
     for key, value in data.items():
@@ -142,17 +156,20 @@ def cleanse_data(data):
             dict_2[key].append(lines)
             
     return dict_2
+
 data2 = cleanse_data(data)
 print(len(data2))    ''')
-
-
+  
+  
   st.write("In our next step, we will create a dictionary to store the image files and their respective captions accordingly. We know that each image has an option of five different captions to choose from. We will define the .jpg image as the key with their five respective captions representing the values. We will split the values appropriately and store them in a dictionary. The following function can be written as follows:")
   st.code(''' 
+
 def vocabulary(data2):
     all_desc = set()
     for key in data2.keys():
         [all_desc.update(d.split()) for d in data2[key]]
     return all_desc
+
 # summarize vocabulary
 vocabulary_data = vocabulary(data2)
 print(len(vocabulary_data)) ''')
@@ -162,6 +179,7 @@ print(len(vocabulary_data)) ''')
 images = 'Images/'
 img = glob(images + '*.jpg')
 print(len(img))
+
 def preprocess(image_path):
     # Convert all the images to size 299x299 as expected by the inception v3 model
     img = keras.preprocessing.image.load_img(image_path, target_size=(299, 299))
@@ -173,9 +191,6 @@ def preprocess(image_path):
     x = keras.applications.inception_v3.preprocess_input(x)
     return x
   ''')
-  
-  
-  
   
   
 with st.expander("Data Modeling"):
