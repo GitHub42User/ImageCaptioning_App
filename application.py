@@ -189,8 +189,8 @@ def preprocess(image_path):
   
   
   
-with st.expander("Data Modeling"):
-  st.header("Data Modeling")
+with st.expander("Modeling"):
+  st.header("Modeling")
   st.write("The modeling technique we used is the CNN - Convolutional Neural Network within Deep Learning which is a type of artificial neural network that is widely used for image/object recognition and classification. The encoder-decoder architecture - where an input image is encoded into an intermediate representation of the information contained within the image and subsequently decoded into a descriptive text sequence - has also contributed to caption’s generation.")
   
   st.subheader("Model architecture")
