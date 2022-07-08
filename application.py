@@ -111,7 +111,7 @@ with st.expander("Business Understanding"):
 with st.expander("Data Understanding"):
   st.header("Data Understanding")
   st.subheader("About or data...")
-  st.write("Our dataset consists of over 80000 images with at least 5 captions each, which are from the open-source dataset MS COCO and are randomly sorted. For the training we will not use the whole data set, because it has an enormous storage capacity.")
+  st.write("For Training we used the Flikr8k Dataset that consists of over 8000 images with 5 captions each, which are from the open-source dataset Flikr30k (30000 images). For the training we will not use the big data set, because it has an enormous storage capacity.")
   st.code('''
   #input
  data['1000268201_693b08cb0e']
